@@ -1,4 +1,4 @@
-require "barby/outputter"
+require 'barby/outputter'
 
 module Barby
   # Outputs an HTML <table> containing cells for each module in the barcode.
@@ -75,11 +75,11 @@ module Barby
     end
 
     def start
-      '<table class="barby-barcode' + (class_name ? " #{class_name}" : "") + '"><tbody>'
+      '<table class="barby-barcode' + (class_name ? " #{class_name}" : '') + '"><tbody>'
     end
 
     def stop
-      "</tbody></table>"
+      '</tbody></table>'
     end
   end
 end

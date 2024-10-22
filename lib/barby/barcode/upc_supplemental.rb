@@ -1,5 +1,5 @@
-require "barby/barcode"
-require "barby/barcode/ean_13"
+require 'barby/barcode'
+require 'barby/barcode/ean_13'
 
 module Barby
   class UPCSupplemental < Barby::Barcode1D
@@ -7,8 +7,8 @@ module Barby
 
     FORMAT = /^\d\d\d\d\d$|^\d\d$/
 
-    START = "1011"
-    SEPARATOR = "01"
+    START = '1011'
+    SEPARATOR = '01'
 
     ODD = :odd
     EVEN = :even
@@ -115,8 +115,8 @@ module Barby
       data
     end
 
-    NO_PRICE = new("90000") # The book doesn't have a suggested retail price
-    COMPLIMENTARY = new("99991") # The book is complimentary (~free)
-    USED = new("99990") # The book is marked as used
+    NO_PRICE = new('90000') # The book doesn't have a suggested retail price
+    COMPLIMENTARY = new('99991') # The book is complimentary (~free)
+    USED = new('99990') # The book is marked as used
   end
 end

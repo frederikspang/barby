@@ -1,7 +1,7 @@
-require "barby/barcode"
-require "java"
-require "Pdf417lib"
-import "Pdf417lib"
+require 'barby/barcode'
+require 'java'
+require 'Pdf417lib'
+import 'Pdf417lib'
 
 module Barby
   class Pdf417 < Barcode2D
@@ -63,10 +63,10 @@ module Barby
       row = nil
       @pdf417.getOutBits.each_with_index do |byte, n|
         if n % cols == 0
-          row = ""
+          row = ''
           enc << row
         end
-        row << sprintf("%08b", (byte & 0xff) | 0x100)
+        row << format('%08b', (byte & 0xff) | 0x100)
       end
       enc
     end

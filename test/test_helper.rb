@@ -1,3 +1,3 @@
-require "rubygems"
-require "barby"
-require "minitest/autorun"
+require 'rubygems'
+require 'barby'
+require 'minitest/autorun'

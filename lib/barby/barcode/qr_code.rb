@@ -1,5 +1,5 @@
-require "rqrcode"
-require "barby/barcode"
+require 'rqrcode'
+require 'barby/barcode'
 
 module Barby
   # QrCode is a thin wrapper around the RQRCode library
@@ -30,22 +30,20 @@ module Barby
       39 => [2809, 2213, 1579, 1219], 40 => [2953, 2331, 1663, 1273]
     }.sort
 
-    LEVELS = {l: 0, m: 1, q: 2, h: 3}
+    LEVELS = { l: 0, m: 1, q: 2, h: 3 }
 
-    attr_reader :data
-    attr_writer :level, :size
+    attr_accessor :data
+    attr_writer :level, :size, :data
 
     def initialize(data, options = {})
       self.data = data
       @level, @size = nil
       options.each { |k, v| send(:"#{k}=", v) }
-      raise(ArgumentError, "data too large") unless size
+      raise(ArgumentError, 'data too large') unless size
     end
 
-    attr_writer :data
-
     def encoding
-      rqrcode.modules.map { |r| r.inject("") { |s, m| s << (m ? "1" : "0") } }
+      rqrcode.modules.map { |r| r.inject('') { |s, m| s << (m ? '1' : '0') } }
     end
 
     # Error correction level

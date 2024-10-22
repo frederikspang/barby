@@ -1,4 +1,4 @@
-require "barby/outputter"
+require 'barby/outputter'
 
 module Barby
   # Renders the barcode to a simple SVG image using pure ruby
@@ -17,15 +17,16 @@ module Barby
   class SvgOutputter < Outputter
     register :to_svg, :bars_to_rects, :bars_to_path
 
-    attr_writer :title, :xdim, :ydim, :height, :rmargin, :lmargin, :tmargin, :bmargin, :xmargin, :ymargin, :margin, :foreground, :background
+    attr_writer :title, :xdim, :ydim, :height, :rmargin, :lmargin, :tmargin, :bmargin, :xmargin, :ymargin, :margin,
+                :foreground, :background
 
     def to_svg(opts = {})
       with_options opts do
         case opts[:use]
-        when "rects" then bars = bars_to_rects
-        when "path" then bars = bars_to_path
+        when 'rects' then bars = bars_to_rects
+        when 'path' then bars = bars_to_path
         else
-          xdim_odd = (xdim % 2 == 1)
+          xdim_odd = xdim.odd?
           bars = xdim_odd ? bars_to_rects : bars_to_path
         end
 
@@ -44,17 +45,16 @@ module Barby
     end
 
     def bars_to_rects(opts = {})
-      rects = ""
+      rects = ''
       with_options opts do
-        x, y = lmargin, tmargin
+        x = lmargin
+        y = tmargin
 
         if barcode.two_dimensional?
           boolean_groups.each do |line|
             line.each do |bar, amount|
               bar_width = xdim * amount
-              if bar
-                rects << %(<rect x="#{x}" y="#{y}" width="#{bar_width}px" height="#{ydim}px" />\n)
-              end
+              rects << %(<rect x="#{x}" y="#{y}" width="#{bar_width}px" height="#{ydim}px" />\n) if bar
               x += bar_width
             end
             y += ydim
@@ -64,9 +64,7 @@ module Barby
         else
           boolean_groups.each do |bar, amount|
             bar_width = xdim * amount
-            if bar
-              rects << %(<rect x="#{x}" y="#{y}" width="#{bar_width}px" height="#{height}px" />\n)
-            end
+            rects << %(<rect x="#{x}" y="#{y}" width="#{bar_width}px" height="#{height}px" />\n) if bar
             x += bar_width
           end
 
@@ -83,16 +81,15 @@ module Barby
     end
 
     def bars_to_path_data(opts = {})
-      path_data = ""
+      path_data = ''
       with_options opts do
-        x, y = lmargin + (xdim / 2), tmargin
+        x = lmargin + (xdim / 2)
+        y = tmargin
 
         if barcode.two_dimensional?
           booleans.each do |line|
             line.each do |bar|
-              if bar
-                path_data << "M#{x} #{y}V #{y + ydim}"
-              end
+              path_data << "M#{x} #{y}V #{y + ydim}" if bar
               x += xdim
             end
             y += ydim
@@ -101,9 +98,7 @@ module Barby
 
         else
           booleans.each do |bar|
-            if bar
-              path_data << "M#{x} #{y}V#{y + height}"
-            end
+            path_data << "M#{x} #{y}V#{y + height}" if bar
             x += xdim
           end
 
@@ -159,16 +154,19 @@ module Barby
 
     def xmargin
       return nil if @lmargin || @rmargin
+
       _margin
     end
 
     def ymargin
       return nil if @tmargin || @bmargin
+
       _margin
     end
 
     def margin
       return nil if @ymargin || @xmargin || @tmargin || @bmargin || @lmargin || @rmargin
+
       _margin
     end
 
@@ -177,11 +175,11 @@ module Barby
     end
 
     def foreground
-      @foreground || "#000"
+      @foreground || '#000'
     end
 
     def background
-      @background || "#fff"
+      @background || '#fff'
     end
 
     def svg_width(opts = {})
@@ -212,7 +210,7 @@ module Barby
 
     # Escape XML special characters <, & and >
     def escape(str)
-      str.gsub("&", "&amp;").gsub("<", "&lt;").gsub(">", "&gt;")
+      str.gsub('&', '&amp;').gsub('<', '&lt;').gsub('>', '&gt;')
     end
   end
 end

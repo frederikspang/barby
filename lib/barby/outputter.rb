@@ -1,4 +1,4 @@
-require "barby/barcode"
+require 'barby/barcode'
 
 module Barby
   # An Outputter creates something from a barcode. That something can be
@@ -63,9 +63,9 @@ module Barby
     # in the same way
     def booleans(reload = false) # :doc:
       if two_dimensional?
-        encoding(reload).map { |l| l.chars.map { |c| c == "1" } }
+        encoding(reload).map { |l| l.chars.map { |c| c == '1' } }
       else
-        encoding(reload).chars.map { |c| c == "1" }
+        encoding(reload).chars.map { |c| c == '1' }
       end
     end
 
@@ -85,12 +85,12 @@ module Barby
       if two_dimensional?
         encoding(reload).map do |line|
           line.scan(/1+|0+/).map do |group|
-            [group[0, 1] == "1", group.size]
+            [group[0, 1] == '1', group.size]
           end
         end
       else
         encoding(reload).scan(/1+|0+/).map do |group|
-          [group[0, 1] == "1", group.size]
+          [group[0, 1] == '1', group.size]
         end
       end
     end

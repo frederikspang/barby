@@ -1,5 +1,5 @@
-require "test_helper"
-require "barby/outputter/png_outputter"
+require 'test_helper'
+require 'barby/outputter/png_outputter'
 
 class PngTestBarcode < Barby::Barcode
   def initialize(data)
@@ -13,36 +13,36 @@ end
 
 describe Barby::PngOutputter do
   before do
-    @barcode = PngTestBarcode.new("10110011100011110000")
+    @barcode = PngTestBarcode.new('10110011100011110000')
     @outputter = Barby::PngOutputter.new(@barcode)
   end
 
-  it "should register to_png and to_image" do
+  it 'should register to_png and to_image' do
     expect(Barby::Barcode.outputters).must_include(:to_png)
     expect(Barby::Barcode.outputters).must_include(:to_image)
   end
 
-  it "should return a ChunkyPNG::Datastream on to_datastream" do
+  it 'should return a ChunkyPNG::Datastream on to_datastream' do
     expect(@barcode.to_datastream).must_be_instance_of(ChunkyPNG::Datastream)
   end
 
-  it "should return a string on to_png" do
+  it 'should return a string on to_png' do
     expect(@barcode.to_png).must_be_instance_of(String)
   end
 
-  it "should return a ChunkyPNG::Image on to_canvas" do
+  it 'should return a ChunkyPNG::Image on to_canvas' do
     expect(@barcode.to_image).must_be_instance_of(ChunkyPNG::Image)
   end
 
-  it "should have a width equal to Xdim * barcode_string.length" do
+  it 'should have a width equal to Xdim * barcode_string.length' do
     expect(@outputter.width).must_equal @outputter.barcode.encoding.length * @outputter.xdim
   end
 
-  it "should have a full_width which is the sum of width + (margin*2)" do
+  it 'should have a full_width which is the sum of width + (margin*2)' do
     expect(@outputter.full_width).must_equal @outputter.width + (@outputter.margin * 2)
   end
 
-  it "should have a full_height which is the sum of height + (margin*2)" do
+  it 'should have a full_height which is the sum of height + (margin*2)' do
     expect(@outputter.full_height).must_equal @outputter.height + (@outputter.margin * 2)
   end
 end

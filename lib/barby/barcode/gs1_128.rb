@@ -1,4 +1,4 @@
-require "barby/barcode/code_128"
+require 'barby/barcode/code_128'
 
 module Barby
   # DEPRECATED - Use the Code128 class directly instead:
