@@ -23,6 +23,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "minitest"
   s.add_development_dependency "rake"
   s.add_development_dependency "rqrcode", "~> 2.2"
-  s.add_development_dependency "prawn", "~> 2.2"
-  s.add_development_dependency "cairo", "~> 1.15"
 end
