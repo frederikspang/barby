@@ -1,7 +1,6 @@
-require 'barby/outputter'
+require "barby/outputter"
 
 module Barby
-
   # Outputs an HTML <table> containing cells for each module in the barcode.
   #
   # This does NOT include any styling, you're expected to add the relevant
@@ -37,18 +36,15 @@ module Barby
   #
   #   :class_name - A class name that will be added to the <table> in addition to barby-barcode
   class HtmlOutputter < Outputter
-
     register :to_html
 
     attr_accessor :class_name
-
 
     def to_html(options = {})
       with_options options do
         start + rows.join + stop
       end
     end
-
 
     def rows
       if barcode.two_dimensional?
@@ -58,13 +54,12 @@ module Barby
       end
     end
 
-
     def rows_for(boolean_groups)
-      boolean_groups.map{|g| row_for(cells_for(g)) }
+      boolean_groups.map { |g| row_for(cells_for(g)) }
     end
 
     def cells_for(booleans)
-      booleans.map{|b| b ? on_cell : off_cell }
+      booleans.map { |b| b ? on_cell : off_cell }
     end
 
     def row_for(cells)
@@ -80,14 +75,11 @@ module Barby
     end
 
     def start
-      '<table class="barby-barcode'+(class_name ? " #{class_name}" : '')+'"><tbody>'
+      '<table class="barby-barcode' + (class_name ? " #{class_name}" : "") + '"><tbody>'
     end
 
     def stop
-      '</tbody></table>'
+      "</tbody></table>"
     end
-
-
   end
-
 end

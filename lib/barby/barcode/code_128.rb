@@ -1,33 +1,31 @@
-#encoding: ASCII
-require 'barby/barcode'
+# encoding: ASCII
+
+require "barby/barcode"
 
 module Barby
-
-
-  #Code 128 barcodes
+  # Code 128 barcodes
   #
-  #Note that you must provide a type for each object, either by passing a string
-  #as a second parameter to Code128.new or by instantiating one of the child classes.
+  # Note that you must provide a type for each object, either by passing a string
+  # as a second parameter to Code128.new or by instantiating one of the child classes.
   #
-  #You can switch type by using the CODEA, CODEB and CODEC characters:
+  # You can switch type by using the CODEA, CODEB and CODEC characters:
   #
   # "\305" => A
   # "\306" => B
   # "\307" => C
   #
-  #As an example, here's one that starts out as type A and then switches to B and then C:
+  # As an example, here's one that starts out as type A and then switches to B and then C:
   #
   #  Code128A.new("ABC123\306def\3074567")
   #
   #
-  #GS1-128/EAN-128/UCC-128
+  # GS1-128/EAN-128/UCC-128
   #
-  #To make a GS1-128 code, prefix the data with FNC1 and the Application Identifier:
+  # To make a GS1-128 code, prefix the data with FNC1 and the Application Identifier:
   #
   #  #AI=00, data=12345
   #  Code128.new("#{Code128::FNC1}0012345")
   class Code128 < Barcode1D
-
     FNC1 = "\xc1"
     FNC2 = "\xc2"
     FNC3 = "\xc3"
@@ -40,8 +38,8 @@ module Barby
     STARTB = "\xca"
     STARTC = "\xcb"
 
-    STOP = '11000111010'
-    TERMINATE = '11'
+    STOP = "11000111010"
+    TERMINATE = "11"
 
     ENCODINGS = {
       0 => "11011001100", 1 => "11001101100", 2 => "11001100110",
@@ -83,46 +81,46 @@ module Barby
     }
 
     VALUES = {
-      'A' => {
-        0 => " ",      1 => "!",        2 => "\"",
-        3 => "#",       4 => "$",        5 => "%",
-        6 => "&",       7 => "'",        8 => "(",
-        9 => ")",       10 => "*",       11 => "+",
-        12 => ",",      13 => "-",       14 => ".",
-        15 => "/",      16 => "0",       17 => "1",
-        18 => "2",      19 => "3",       20 => "4",
-        21 => "5",      22 => "6",       23 => "7",
-        24 => "8",      25 => "9",       26 => ":",
-        27 => ";",      28 => "<",       29 => "=",
-        30 => ">",      31 => "?",       32 => "@",
-        33 => "A",      34 => "B",       35 => "C",
-        36 => "D",      37 => "E",       38 => "F",
-        39 => "G",      40 => "H",       41 => "I",
-        42 => "J",      43 => "K",       44 => "L",
-        45 => "M",      46 => "N",       47 => "O",
-        48 => "P",      49 => "Q",       50 => "R",
-        51 => "S",      52 => "T",       53 => "U",
-        54 => "V",      55 => "W",       56 => "X",
-        57 => "Y",      58 => "Z",       59 => "[",
-        60 => "\\",     61 => "]",       62 => "^",
-        63 => "_",      64 => "\000",    65 => "\001",
-        66 => "\002",   67 => "\003",    68 => "\004",
-        69 => "\005",   70 => "\006",    71 => "\a",
-        72 => "\b",     73 => "\t",      74 => "\n",
-        75 => "\v",     76 => "\f",      77 => "\r",
-        78 => "\016",   79 => "\017",    80 => "\020",
-        81 => "\021",   82 => "\022",    83 => "\023",
-        84 => "\024",   85 => "\025",    86 => "\026",
-        87 => "\027",   88 => "\030",    89 => "\031",
-        90 => "\032",   91 => "\e",      92 => "\034",
-        93 => "\035",   94 => "\036",    95 => "\037",
-        96 => FNC3,     97 => FNC2,      98 => SHIFT,
-        99 => CODEC,    100 => CODEB,    101 => FNC4,
-        102 => FNC1,    103 => STARTA,   104 => STARTB,
+      "A" => {
+        0 => " ", 1 => "!", 2 => "\"",
+        3 => "#", 4 => "$", 5 => "%",
+        6 => "&", 7 => "'", 8 => "(",
+        9 => ")", 10 => "*", 11 => "+",
+        12 => ",", 13 => "-", 14 => ".",
+        15 => "/", 16 => "0", 17 => "1",
+        18 => "2", 19 => "3", 20 => "4",
+        21 => "5", 22 => "6", 23 => "7",
+        24 => "8", 25 => "9", 26 => ":",
+        27 => ";", 28 => "<", 29 => "=",
+        30 => ">", 31 => "?", 32 => "@",
+        33 => "A", 34 => "B", 35 => "C",
+        36 => "D", 37 => "E", 38 => "F",
+        39 => "G", 40 => "H", 41 => "I",
+        42 => "J", 43 => "K", 44 => "L",
+        45 => "M", 46 => "N", 47 => "O",
+        48 => "P", 49 => "Q", 50 => "R",
+        51 => "S", 52 => "T", 53 => "U",
+        54 => "V", 55 => "W", 56 => "X",
+        57 => "Y", 58 => "Z", 59 => "[",
+        60 => "\\", 61 => "]", 62 => "^",
+        63 => "_", 64 => "\000", 65 => "\001",
+        66 => "\002", 67 => "\003", 68 => "\004",
+        69 => "\005", 70 => "\006", 71 => "\a",
+        72 => "\b", 73 => "\t", 74 => "\n",
+        75 => "\v", 76 => "\f", 77 => "\r",
+        78 => "\016", 79 => "\017", 80 => "\020",
+        81 => "\021", 82 => "\022", 83 => "\023",
+        84 => "\024", 85 => "\025", 86 => "\026",
+        87 => "\027", 88 => "\030", 89 => "\031",
+        90 => "\032", 91 => "\e", 92 => "\034",
+        93 => "\035", 94 => "\036", 95 => "\037",
+        96 => FNC3, 97 => FNC2, 98 => SHIFT,
+        99 => CODEC, 100 => CODEB, 101 => FNC4,
+        102 => FNC1, 103 => STARTA, 104 => STARTB,
         105 => STARTC
       }.invert,
 
-      'B' => {
+      "B" => {
         0 => " ", 1 => "!", 2 => "\"", 3 => "#", 4 => "$", 5 => "%",
         6 => "&", 7 => "'", 8 => "(", 9 => ")", 10 => "*", 11 => "+",
         12 => ",", 13 => "-", 14 => ".", 15 => "/", 16 => "0", 17 => "1",
@@ -141,10 +139,10 @@ module Barby
         90 => "z", 91 => "{", 92 => "|", 93 => "}", 94 => "~", 95 => "\177",
         96 => FNC3, 97 => FNC2, 98 => SHIFT, 99 => CODEC, 100 => FNC4,
         101 => CODEA, 102 => FNC1, 103 => STARTA, 104 => STARTB,
-        105 => STARTC,
+        105 => STARTC
       }.invert,
 
-      'C' => {
+      "C" => {
         0 => "00", 1 => "01", 2 => "02", 3 => "03", 4 => "04", 5 => "05",
         6 => "06", 7 => "07", 8 => "08", 9 => "09", 10 => "10", 11 => "11",
         12 => "12", 13 => "13", 14 => "14", 15 => "15", 16 => "16", 17 => "17",
@@ -166,105 +164,99 @@ module Barby
       }.invert
     }
 
-    CONTROL_CHARACTERS = VALUES['A'].invert.values_at(*(64..95).to_a)
+    CONTROL_CHARACTERS = VALUES["A"].invert.values_at(*(64..95).to_a)
 
     attr_reader :type
 
-
-    def initialize(data, type=nil)
+    def initialize(data, type = nil)
       if type
         self.type = type
-        self.data = "#{data}"
+        self.data = data.to_s
       else
-        self.type, self.data = self.class.determine_best_type_for_data("#{data}")
+        self.type, self.data = self.class.determine_best_type_for_data(data.to_s)
       end
-      raise ArgumentError, 'Data not valid' unless valid?
+      raise ArgumentError, "Data not valid" unless valid?
     end
-
 
     def type=(type)
       type = type.upcase
-      raise ArgumentError, 'type must be A, B or C' unless type =~ /^[ABC]$/
+      raise ArgumentError, "type must be A, B or C" unless /^[ABC]$/.match?(type)
       @type = type
     end
-
 
     def to_s
       full_data
     end
 
+    attr_reader :data
 
-    def data
-      @data
-    end
-
-    #Returns the data for this barcode plus that for the entire extra chain,
-    #excluding all change codes
+    # Returns the data for this barcode plus that for the entire extra chain,
+    # excluding all change codes
     def full_data
       data + full_extra_data
     end
 
-    #Returns the data for this barcode plus that for the entire extra chain,
-    #including all change codes prefixing each extra
+    # Returns the data for this barcode plus that for the entire extra chain,
+    # including all change codes prefixing each extra
     def full_data_with_change_codes
       data + full_extra_data_with_change_code
     end
 
-    #Returns the full_data for the extra or an empty string if there is no extra
+    # Returns the full_data for the extra or an empty string if there is no extra
     def full_extra_data
-      return '' unless extra
+      return "" unless extra
       extra.full_data
     end
 
-    #Returns the full_data for the extra with the change code for the extra
-    #prepended. If there is no extra, an empty string is returned
+    # Returns the full_data for the extra with the change code for the extra
+    # prepended. If there is no extra, an empty string is returned
     def full_extra_data_with_change_code
-      return '' unless extra
+      return "" unless extra
       change_code_for(extra) + extra.full_data_with_change_codes
     end
 
-    #Set the data for this barcode. If the barcode changes
-    #character set, an extra will be created.
+    # Set the data for this barcode. If the barcode changes
+    # character set, an extra will be created.
     def data=(data)
-      data, *extra = data.split(/([#{CODEA+CODEB+CODEC}])/n)
-      @data = data || ''
+      data, *extra = data.split(/([#{CODEA + CODEB + CODEC}])/n)
+      @data = data || ""
       self.extra = extra.join unless extra.empty?
     end
 
-    #An "extra" is present if the barcode changes character set. If
-    #a 128A barcode changes to C, the extra will be an instance of
-    #Code128C. Extras can themselves have an extra if the barcode
-    #changes character set again. It's like a linked list, and when
-    #there are no more extras, the barcode ends with that object.
-    #Most barcodes probably don't change charsets and don't have extras.
+    # An "extra" is present if the barcode changes character set. If
+    # a 128A barcode changes to C, the extra will be an instance of
+    # Code128C. Extras can themselves have an extra if the barcode
+    # changes character set again. It's like a linked list, and when
+    # there are no more extras, the barcode ends with that object.
+    # Most barcodes probably don't change charsets and don't have extras.
     def extra
       return @extra if defined?(@extra)
       @extra = nil
     end
 
-    #Set the extra for this barcode. The argument is a string starting with the
-    #"change character set" symbol. The string may contain several character
-    #sets, in which case the extra will itself have an extra.
+    # Set the extra for this barcode. The argument is a string starting with the
+    # "change character set" symbol. The string may contain several character
+    # sets, in which case the extra will itself have an extra.
     def extra=(extra)
-      raise ArgumentError, "Extra must begin with \\305, \\306 or \\307" unless extra =~ /^[#{CODEA+CODEB+CODEC}]/n
-      type, data = extra[0,1], extra[1..-1]
+      raise ArgumentError, "Extra must begin with \\305, \\306 or \\307" unless /^[#{CODEA + CODEB + CODEC}]/n.match?(extra)
+      type, data = extra[0, 1], extra[1..]
       @extra = class_for(type).new(data)
     end
 
-    #Get an array of the individual characters for this barcode. Special
-    #characters like FNC1 will be present. Characters from extras are not
-    #present.
+    # Get an array of the individual characters for this barcode. Special
+    # characters like FNC1 will be present. Characters from extras are not
+    # present.
     def characters
-      chars = data.split(//n)
+      chars = data.chars
 
-      if type == 'C'
+      if type == "C"
         result = []
         count = 0
         while count < chars.size
-          if chars[count] =~ /^\d$/
-            #If encountering a digit, next char/byte *must* be second digit in pair. I.e. if chars[count] is 5,
-            #chars[count+1] must be /[0-9]/, otherwise it's not valid
-            result << "#{chars[count]}#{chars[count+1]}"
+          if /^\d$/.match?(chars[count])
+            # If encountering a digit, next char/byte *must* be second digit in pair. I.e. if chars[count] is 5,
+            # chars[count+1] must be /[0-9]/, otherwise it's not valid
+            result << "#{chars[count]}#{chars[count + 1]}"
             count += 2
           else
             result << chars[count]
@@ -277,57 +269,55 @@ module Barby
       end
     end
 
-    #Return the encoding of this barcode as a string of 1 and 0
+    # Return the encoding of this barcode as a string of 1 and 0
     def encoding
-      start_encoding+data_encoding+extra_encoding+checksum_encoding+stop_encoding
+      start_encoding + data_encoding + extra_encoding + checksum_encoding + stop_encoding
     end
 
-    #Returns the encoding for the data part of this barcode, without any extras
+    # Returns the encoding for the data part of this barcode, without any extras
     def data_encoding
       characters.map do |char|
         encoding_for char
       end.join
     end
 
-    #Returns the data encoding of this barcode and extras.
+    # Returns the data encoding of this barcode and extras.
     def data_encoding_with_extra_encoding
-      data_encoding+extra_encoding
+      data_encoding + extra_encoding
     end
 
-    #Returns the data encoding of this barcode's extra and its
-    #extra until the barcode ends.
+    # Returns the data encoding of this barcode's extra and its
+    # extra until the barcode ends.
     def extra_encoding
-      return '' unless extra
+      return "" unless extra
       change_code_encoding_for(extra) + extra.data_encoding + extra.extra_encoding
     end
 
-
-    #Calculate the checksum for the data in this barcode. The data includes
-    #data from extras.
+    # Calculate the checksum for the data in this barcode. The data includes
+    # data from extras.
     def checksum
       pos = 0
-      (numbers+extra_numbers).inject(start_num) do |sum,number|
+      (numbers + extra_numbers).inject(start_num) do |sum, number|
         pos += 1
         sum + (number * pos)
       end % 103
     end
 
-    #Get the encoding for the checksum
+    # Get the encoding for the checksum
     def checksum_encoding
       encodings[checksum]
     end
 
+    # protected
 
-  #protected
-
-    #Returns the numeric values for the characters in the barcode in an array
+    # Returns the numeric values for the characters in the barcode in an array
     def numbers
       characters.map do |char|
         values[char]
       end
     end
 
-    #Returns the numeric values for extras
+    # Returns the numeric values for extras
     def extra_numbers
       return [] unless extra
       [change_code_number_for(extra)] + extra.numbers + extra.extra_numbers
@@ -337,12 +327,12 @@ module Barby
       ENCODINGS
     end
 
-    #The start encoding starts the barcode
+    # The start encoding starts the barcode
     def stop_encoding
-      STOP+TERMINATE
+      STOP + TERMINATE
     end
 
-    #Find the encoding for the specified character for this barcode
+    # Find the encoding for the specified character for this barcode
     def encoding_for(char)
       encodings[values[char]]
     end
@@ -351,19 +341,19 @@ module Barby
       {Code128A => CODEA, Code128B => CODEB, Code128C => CODEC}[klass]
     end
 
-    #Find the character that changes the character set to the one
-    #represented in +barcode+
+    # Find the character that changes the character set to the one
+    # represented in +barcode+
     def change_code_for(barcode)
       change_code_for_class(barcode.class)
     end
 
-    #Find the numeric value for the character that changes the character
-    #set to the one represented in +barcode+
+    # Find the numeric value for the character that changes the character
+    # set to the one represented in +barcode+
     def change_code_number_for(barcode)
       values[change_code_for(barcode)]
     end
 
-    #Find the encoding to change to the character set in +barcode+
+    # Find the encoding to change to the character set in +barcode+
     def change_code_encoding_for(barcode)
       encodings[change_code_number_for(barcode)]
     end
@@ -372,11 +362,11 @@ module Barby
       self.class.class_for(character)
     end
 
-    #Is the data in this barcode valid? Does a lookup of every character
-    #and checks if it exists in the character set. An empty data string
-    #will also be reported as invalid.
+    # Is the data in this barcode valid? Does a lookup of every character
+    # and checks if it exists in the character set. An empty data string
+    # will also be reported as invalid.
     def valid?
-      characters.any? && characters.all?{|c| values.include?(c) }
+      characters.any? && characters.all? { |c| values.include?(c) }
     end
 
     def values
@@ -385,9 +375,9 @@ module Barby
 
     def start_character
       case type
-      when 'A' then STARTA
-      when 'B' then STARTB
-      when 'C' then STARTC
+      when "A" then STARTA
+      when "B" then STARTB
+      when "C" then STARTC
       end
     end
 
@@ -399,9 +389,7 @@ module Barby
       encodings[start_num]
     end
 
-
-
-    CTRL_RE = /#{CONTROL_CHARACTERS.join('|')}/
+    CTRL_RE = /#{CONTROL_CHARACTERS.join("|")}/
     LOWR_RE = /[a-z]/
     DGTS_RE = /\d{4,}/
 
@@ -409,32 +397,27 @@ module Barby
     CODEC_CHARS_RE = /(?:\d{2}|#{FNC1}){2,}/
 
     class << self
-
-
       def class_for(character)
         case character
-        when 'A' then Code128A
-        when 'B' then Code128B
-        when 'C' then Code128C
+        when "A" then Code128A
+        when "B" then Code128B
+        when "C" then Code128C
         when CODEA then Code128A
         when CODEB then Code128B
         when CODEC then Code128C
         end
       end
 
-
-      #Insert code shift and switch characters where appropriate to get the
-      #shortest encoding possible
+      # Insert code shift and switch characters where appropriate to get the
+      # shortest encoding possible
       def apply_shortest_encoding_for_data(data)
         extract_codec(data).map do |block|
           if codec_segment?(block)
             "#{CODEC}#{block}"
+          elsif control_before_lowercase?(block)
+            handle_code_a(block)
           else
-            if control_before_lowercase?(block)
-              handle_code_a(block)
-            else
-              handle_code_b(block)
-            end
+            handle_code_b(block)
           end
         end.join
       end
@@ -442,17 +425,16 @@ module Barby
       def determine_best_type_for_data(data)
         data = apply_shortest_encoding_for_data(data)
         type = case data.slice!(0)
-               when CODEA then 'A'
-               when CODEB then 'B'
-               when CODEC then 'C'
-               end
+        when CODEA then "A"
+        when CODEB then "B"
+        when CODEC then "C"
+        end
         [type, data]
       end
 
+      private
 
-    private
-
-      #Extract all CODEC segments from the data. 4 or more evenly numbered contiguous digits.
+      # Extract all CODEC segments from the data. 4 or more evenly numbered contiguous digits.
       #
       #  #                                        C       A or B  C         A or B
       #  extract_codec("12345abc678910DEF11") => ["1234", "5abc", "678910", "DEF11"]
@@ -461,11 +443,11 @@ module Barby
           (^(?:#{CODEC_CHARS_RE})) # matches digits that appear at the beginning of the barcode
           |
           ((?:#{CODEC_CHARS_RE})(?!\d)) # matches digits that appear later in the barcode
-        /x).reject(&:empty?)
+        /xo).reject(&:empty?)
       end
 
       def codec_segment?(data)
-        data =~ /\A#{CODEC_CHARS_RE}\Z/
+        data =~ /\A#{CODEC_CHARS_RE}\Z/o
       end
 
       def control_character?(char)
@@ -476,97 +458,77 @@ module Barby
         char =~ LOWR_RE
       end
 
-
-      #Handle a Code A segment which may contain Code B parts, but may not
-      #contain any Code C parts.
+      # Handle a Code A segment which may contain Code B parts, but may not
+      # contain any Code C parts.
       def handle_code_a(data)
         indata = data.dup
-        outdata = CODEA.dup #We know it'll be A
-        while char = indata.slice!(0)
-          if lowercase_character?(char) #Found a lower case character (Code B)
+        outdata = CODEA.dup # We know it'll be A
+        while (char = indata.slice!(0))
+          if lowercase_character?(char) # Found a lower case character (Code B)
             if control_before_lowercase?(indata)
-              outdata << SHIFT << char #Control character appears before a new lowercase, use shift
+              outdata << SHIFT << char # Control character appears before a new lowercase, use shift
             else
-              outdata << handle_code_b(char+indata) #Switch to Code B
+              outdata << handle_code_b(char + indata) # Switch to Code B
               break
             end
           else
             outdata << char
           end
-        end#while
+        end # while
 
         outdata
       end
 
-
-      #Handle a Code B segment which may contain Code A parts, but may not
-      #contain any Code C parts.
+      # Handle a Code B segment which may contain Code A parts, but may not
+      # contain any Code C parts.
       def handle_code_b(data)
         indata = data.dup
-        outdata = CODEB.dup #We know this is going to start with Code B
-        while char = indata.slice!(0)
-          if control_character?(char) #Found a control character (Code A)
-            if control_before_lowercase?(indata)    #There is another control character before any lowercase, so
-              outdata << handle_code_a(char+indata) #switch over to Code A.
+        outdata = CODEB.dup # We know this is going to start with Code B
+        while (char = indata.slice!(0))
+          if control_character?(char) # Found a control character (Code A)
+            if control_before_lowercase?(indata)    # There is another control character before any lowercase, so
+              outdata << handle_code_a(char + indata) # switch over to Code A.
               break
             else
-              outdata << SHIFT << char #Can use a shift to only encode this char as Code A
+              outdata << SHIFT << char # Can use a shift to only encode this char as Code A
             end
           else
             outdata << char
           end
-        end#while
+        end # while
 
         outdata
       end
 
-
-      #Test str to see if a control character (Code A) appears
-      #before a lower case character (Code B).
+      # Test str to see if a control character (Code A) appears
+      # before a lower case character (Code B).
       #
-      #Returns true only if it contains a control character and a lower case
-      #character doesn't appear before it.
+      # Returns true only if it contains a control character and a lower case
+      # character doesn't appear before it.
       def control_before_lowercase?(str)
         ctrl = str =~ CTRL_RE
         char = str =~ LOWR_RE
 
         ctrl && (!char || ctrl < char)
       end
-
-
-
-    end#class << self
-
-
-
-  end#class Code128
-
+    end # class << self
+  end # class Code128
 
   class Code128A < Code128
-
     def initialize(data)
-      super(data, 'A')
+      super(data, "A")
     end
-
   end
-
 
   class Code128B < Code128
-
     def initialize(data)
-      super(data, 'B')
+      super(data, "B")
     end
-
   end
-
 
   class Code128C < Code128
-
     def initialize(data)
-      super(data, 'C')
+      super(data, "C")
     end
-
   end
-
-
 end
